@@ -74,7 +74,7 @@ class Step(parent: NewProjectWizardStep) : AbstractNewProjectWizardStep(parent),
 
                                 if (!name.matches(APPLICATION_NAME_REGEX)) {
                                     error(
-                                        "Application name ust start with a lowercase ASCII letter, followed by " +
+                                        "Application name must start with a lowercase ASCII letter, followed by " +
                                                 "lowercase ASCII letters, numbers, or underscores, got: \"${name}\"" +
                                                 ". The application name is inferred from the path, if you'd like to" +
                                                 " explicitly name the application set --app"
@@ -85,7 +85,7 @@ class Step(parent: NewProjectWizardStep) : AbstractNewProjectWizardStep(parent),
                             } else {
                                 if (!mixNewApp.matches(APPLICATION_NAME_REGEX)) {
                                     error(
-                                        "Application name ust start with a lowercase ASCII letter, followed by " +
+                                        "Application name must start with a lowercase ASCII letter, followed by " +
                                                 "lowercase ASCII letters, numbers, or underscores."
                                     )
                                 } else {
@@ -191,13 +191,15 @@ class Step(parent: NewProjectWizardStep) : AbstractNewProjectWizardStep(parent),
                 )
             )
 
+            val appName = mixNewApp.ifBlank { name }
+
             builder.setCompilerOutputPath(
                 Paths.get(
                     context.projectDirectory.toString(),
                     "_build",
                     "dev",
                     "lib",
-                    mixNewApp,
+                    appName,
                     "ebin"
                 ).toString()
             )
